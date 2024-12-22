@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IMU Data Visualization</title>
+    <!-- 引入 Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- 用於繪製圖表的畫布 -->
+    <canvas id="chartCanvas" width="400" height="200"></canvas>
+
+    <script>
+        <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IMU Data Visualization</title>
+    <!-- 引入 Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- 用於繪製圖表的畫布 -->
+    <canvas id="chartCanvas" width="400" height="200"></canvas>
+
+    <script>
+        // 獲取畫布上下文
+        let ctx = document.getElementById('chartCanvas').getContext('2d');
+
+        // 初始化圖表
+        let chart = new Chart(ctx, {
+            type: 'line', // 折線圖
+            data: {
+                labels: [],  // X 軸標籤（例如樣本編號）
+                datasets: [
+                    {
+                        label: 'X-axis', // 標籤
+                        data: [],        // 數據
+                        borderColor: 'rgb(255, 99, 132)', // 線條顏色
+                        borderWidth: 1   // 線條寬度
+                    },
+                    {
+                        label: 'Y-axis',
+                        data: [],
+                        borderColor: 'rgb(54, 162, 235)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Z-axis',
+                        data: [],
+                        borderColor: 'rgb(75, 192, 192)',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: { beginAtZero: true }, // X 軸起點設為 0
+                    y: { beginAtZero: true }  // Y 軸起點設為 0
+                }
+            }
+        });
+
+        // 函數：更新圖表數據
+        function updateChart(newData) {
+            // newData 格式示例："0.1,0.2,0.3;0.4,0.5,0.6"
+            let samples = newData.split(';');
+            let xData = [], yData = [], zData = [], labels = [];
+
+            samples.forEach((sample, index) => {
+                let [x, y, z] = sample.split(','); // 拆解數據
+                xData.push(parseFloat(x));
+                yData.push(parseFloat(y));
+                zData.push(parseFloat(z));
+                labels.push(index + 1); // 樣本編號
+            });
+
+            // 更新圖表數據
+            chart.data.labels = labels;
+            chart.data.datasets[0].data = xData;
+            chart.data.datasets[1].data = yData;
+            chart.data.datasets[2].data = zData;
+
+            // 更新圖表顯示
+            chart.update();
+        }
+
+        // 測試數據：模擬數據更新
+        let testData = "0.1,0.2,0.3;0.4,0.5,0.6;0.7,0.8,0.9;1.0,1.1,1.2";
+        updateChart(testData); // 測試繪圖
+    </script>
+</body>
+</html>
+
+    </script>
+</body>
+</html>
